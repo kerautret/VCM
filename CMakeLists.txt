@@ -57,9 +57,13 @@ endif( Boost_FOUND )
 SET(VCM_SRC
   dvcm-2d
   delta-distance
+  delta-distance-2d
+  delta-distance3D
+  delta-vcm
   )
 # Add source files needing QGLViewer here.
 SET(VCM_QGL_SRC
+  delta-vcm-3d
   dvcm-3d
   dvcm-features-3d
   implicitShape3NormalEstimation
@@ -76,6 +80,7 @@ SET(VCM_QGL_SRC
 FOREACH(FILE ${VCM_SRC})
   add_executable(${FILE} ${FILE})
   target_link_libraries (${FILE} ${DGTAL_LIBRARIES} ${VCMLibDependencies})
+  SET_TARGET_PROPERTIES(${FILE} PROPERTIES LINKER_LANGUAGE CXX)
   install(TARGETS ${FILE} 
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
@@ -87,6 +92,7 @@ if ( WITH_VISU3D_QGLVIEWER )
   FOREACH(FILE ${VCM_QGL_SRC}) 
     add_executable(${FILE} ${FILE})
     target_link_libraries ( ${FILE} ${DGTAL_LIBRARIES} ${VCMLibDependencies})   
+	SET_TARGET_PROPERTIES(${FILE} PROPERTIES LINKER_LANGUAGE CXX)
     install(TARGETS ${FILE} 
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
